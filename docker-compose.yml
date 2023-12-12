@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development 
+
+#   db:
+#     platform: linux/x86_64
+#     image: mysql
+#     container_name: msd_db
+#     restart: always
+#     environment:
+#       MYSQL_ROOT_PASSWORD: toor
+#       MYSQL_DATABASE: msd2023
+#     ports:
+#       - 3309:3306
+#     volumes:
+#       - mysql-msd:/var/lib/mysql
+# volumes:
+#   mysql-msd:
+#     name: "mysql-msd"
+  
+
