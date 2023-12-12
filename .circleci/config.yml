@@ -8,7 +8,13 @@ jobs:
       - checkout
       - run:
           name: Install Dependencies
-          command: npm install
+          command: npm install --force
       - run:
-          name: Build TypeScript
-          command: npm run build
+          name: Build Prisma db
+          command: npx prisma generate
+      - run:
+          name: Add Prisma db
+          command: npx prisma db push
+      - run:
+          name: Build TypeScripta
+          command: npm run build 
