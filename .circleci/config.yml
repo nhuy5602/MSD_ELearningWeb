@@ -17,4 +17,4 @@ jobs:
           command: npx prisma db push
       - run:
           name: Build TypeScripta
-          command: npm run dev 
+          command: npm run build 
