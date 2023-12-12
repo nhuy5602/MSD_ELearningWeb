@@ -3,10 +3,11 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
+import { View } from "lucide-react";
 
 const { Video } = new Mux(
   process.env.MUX_TOKEN_ID!,
-  process.env.MUX_TOKEN_SECRET!,
+  process.env.MUX_TOKEN_SECRET!
 );
 
 export async function DELETE(
@@ -29,9 +30,9 @@ export async function DELETE(
         chapters: {
           include: {
             muxData: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
 
     if (!course) {
@@ -39,9 +40,14 @@ export async function DELETE(
     }
 
     for (const chapter of course.chapters) {
-      if (chapter.muxData?.assetId) {
-        await Video.Assets.del(chapter.muxData.assetId);
-      }
+      // if (chapter.muxData?.assetId) {
+      //   await Video.Assets.del(chapter.muxData.assetId);
+      // }
+      chapter.muxData?.map(async (e) => {
+        if (e.assetId) {
+          await Video.Assets.del(e.assetId);
+        }
+      });
     }
 
     const deletedCourse = await db.course.delete({
@@ -73,11 +79,11 @@ export async function PATCH(
     const course = await db.course.update({
       where: {
         id: courseId,
-        userId
+        userId,
       },
       data: {
         ...values,
-      }
+      },
     });
 
     return NextResponse.json(course);
