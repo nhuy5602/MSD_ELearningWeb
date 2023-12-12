@@ -100,9 +100,10 @@ export const CategoryForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Combobox
-                      options={...options}
-                      {...field}
+                  <Combobox
+                    options={options}
+                    value={field.value}  // Add this line if necessary
+                    onChange={(value) => field.onChange(value)}  // Add this line
                     />
                   </FormControl>
                   <FormMessage />
